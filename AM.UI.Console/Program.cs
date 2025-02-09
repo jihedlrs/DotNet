@@ -68,12 +68,11 @@ foreach (var flight in orderedFlights)
     Console.WriteLine("les Vols ordonnés"+flight.Destination + flight.EstimatedDuration);
 }
 
-Flight F2 = TestData.flight1; // Utiliser un vol existant dans TestData
+Flight F2 = TestData.flight1; 
 
-// Appel de la méthode SeniorTravellers pour obtenir les 3 passagers les plus âgés
+
 var seniorTravellers = f1.SeniorTravellers(F2);
 
-// Afficher les résultats
 foreach (var traveller in seniorTravellers)
 {
     Console.WriteLine(traveller.FirstName + traveller.LastName );

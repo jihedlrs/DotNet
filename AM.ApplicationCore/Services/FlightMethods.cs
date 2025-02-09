@@ -154,16 +154,10 @@ namespace AM.ApplicationCore.Services
 
         }
 
-        public List<Traveller> SeniorTravellers(Flight flight)
-        {
-            // Vérifie si Passengers est null ou vide
-            if (flight.Passengers == null || !flight.Passengers.Any())
-            {
-                Console.WriteLine("Aucun passager trouvé.");
-                return new List<Traveller>(); // Retourne une liste vide si aucun passager
-            }
+        public List<Traveller> SeniorTravellers(Flight flight){
+    
+         
 
-            // Filtrage des passagers de type Traveller et tri par date de naissance
             return flight.Passengers.OfType<Traveller>()
                                     .OrderByDescending(p => p.BrithDate)
                                     .Take(3)
