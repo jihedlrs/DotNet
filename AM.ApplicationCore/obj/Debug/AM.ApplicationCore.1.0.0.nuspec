@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>AM.ApplicationCore</id>
+    <version>1.0.0</version>
+    <authors>AM.ApplicationCore</authors>
+    <description>Package Description</description>
+    <repository type="git" />
+    <dependencies>
+      <group targetFramework="net8.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\BAZINFO\source\repos\AirportManagement\AM.ApplicationCore\bin\Debug\net8.0\AM.ApplicationCore.dll" target="lib\net8.0\AM.ApplicationCore.dll" />
+  </files>
+</package>
