@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,13 +17,16 @@ namespace AM.ApplicationCore.Domain
         //    PlaneType = planeType;
         //}
 
+        [Range(0, int.MaxValue)]
         public int Capacity {get; set;}//prop light version 
         public DateTime ManufactureDate { get; set; }
-        public int Planeld { get; set; }
+
+        [Key]
+        public int PlaneId { get; set; }
 
         public PlaneType PlaneType { get; set; }
 
-        public ICollection<Flight> Flights { get; set; }
+        public virtual ICollection<Flight> Flights { get; set; }
 
 
         //public override string ToString()

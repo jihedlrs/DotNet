@@ -20,3 +20,7 @@ C:\Users\BAZINFO\Esprit\DotNet\AirportManagement\AM.ApplicationCore\bin\Debug\ne
 C:\Users\BAZINFO\Esprit\DotNet\AirportManagement\AM.ApplicationCore\bin\Debug\net8.0\AM.ApplicationCore.dll
 C:\Users\BAZINFO\Esprit\DotNet\AirportManagement\AM.ApplicationCore\bin\Debug\net8.0\AM.ApplicationCore.pdb
 C:\Users\BAZINFO\Esprit\DotNet\AirportManagement\AM.ApplicationCore\obj\Debug\net8.0\ref\AM.ApplicationCore.dll
+C:\Users\BAZINFO\Esprit\DotNet\AirportManagement\AM.ApplicationCore\obj\Debug\net8.0\AM.ApplicationCore.sourcelink.json
+C:\Users\BAZINFO\Esprit\DotNet\AirportManagement\AM.ApplicationCore\bin\Debug\net8.0\AM.ApplicationCore.runtimeconfig.json
+C:\Users\BAZINFO\Esprit\DotNet\AirportManagement\AM.ApplicationCore\obj\Debug\net8.0\AM.ApplicationCore.csproj.AssemblyReference.cache
+C:\Users\BAZINFO\Esprit\DotNet\AirportManagement\AM.ApplicationCore\obj\Debug\net8.0\AM.ApplicationCore.genruntimeconfig.cache

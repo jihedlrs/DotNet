@@ -3,6 +3,7 @@
 using System;
 using AM.ApplicationCore.Domain;
 using AM.ApplicationCore.Services;
+using AM.InfraStructure;
 
 //Console.WriteLine("Hello, World!");
 
@@ -12,11 +13,11 @@ using AM.ApplicationCore.Services;
 Plane p1 = new Plane { Capacity=100, PlaneType=PlaneType.Airbus }; // initialiser sans faire un constructeur
 Console.WriteLine(p1.Capacity);
 
-Passenger p2 = new Passenger { LastName = "jiji", FirstName = "aaa" };//tester la methode check pour verifier (nom,prenom)==nom,prenom,
+Passenger p2 = new Passenger { FullName=new FullName { LastName = "jiji", FirstName = "aaa" } };//tester la methode check pour verifier (nom,prenom)==nom,prenom,
 Console.WriteLine("Test CheckProfile  " + p2.checkProfile("jiji", "aaa"));
 
 
-Passenger p3 = new Passenger { LastName = "jiji", FirstName = "aaa" ,EmailAddress="aaa@gmail.com"};//tester la methode check pour verifier (nom,prenom,email)==nom,prenom,email
+Passenger p3 = new Passenger { FullName=new FullName { LastName = "jiji", FirstName = "aaa" } ,EmailAddress="aaa@gmail.com"};//tester la methode check pour verifier (nom,prenom,email)==nom,prenom,email
 Console.WriteLine("Test CheckProfile  " + p3.checkProfile("jiji", "aaa","aaa@gmail.com"));
 
 
@@ -26,13 +27,15 @@ Console.WriteLine("Test CheckProfile1 " + p3.checkProfile1("jiji", "aaa"));//ret
 
 p3.PassengerType();
 
+
 Staff s = new Staff();
- 
 s.PassengerType();
+
 
 Traveller tr = new Traveller();
 tr.PassengerType();
 
+Console.WriteLine("***Methode  GetFlightDates");
 FlightMethods f1 = new FlightMethods();
 f1.Flights = TestData.listFlights;
 foreach(var item in f1.GetFlightDates("Paris"))
@@ -40,42 +43,69 @@ foreach(var item in f1.GetFlightDates("Paris"))
     Console.WriteLine(item);
 }
 
+///
+
+Console.WriteLine("*** Methode GetFlights ***");
+foreach (var item in f1.GetFlights("EstimatedDuration", "200"))
+{
+    Console.WriteLine(item.EstimatedDuration);
+}
 
 
-Console.WriteLine(" les dates et les destinations des vols d’un avion::::");
+
+//
+
+Console.WriteLine("***Methode ShowFlightDetails");
 f1.ShowFlightDetails(TestData.Airbusplane);
 
+//
 
+Console.WriteLine("***Methode  ProgrammedFlightNumber");
+Console.WriteLine("Programmes flighrsNumber"+f1.ProgrammedFlightNumber(new DateTime(2022, 02, 01)));
 
-DateTime startDate = new DateTime(2022, 02, 01); 
-int X = f1.ProgrammedFlightNumber(startDate);
-Console.WriteLine("Nombre de vols programmés : " + X);
+//
+Console.WriteLine("***Methode  DurationAverage");
+Console.WriteLine("Durée moyenne des vols "+f1.DurationAverage("Madrid"));
 
+//
 
-
-
-
-
-int x = f1.DurationAverage("Paris");
-Console.WriteLine("Durée moyenne des vols " + "Paris" + " : " + x );
-
-
-
-var orderedFlights = f1.OrderedDurationFlights();
-
-foreach (var flight in orderedFlights)
+Console.WriteLine("***Methode  OrderedDurationFlights");
+foreach (var  item in f1.OrderedDurationFlights())
 {
-    Console.WriteLine("les Vols ordonnés"+flight.Destination + flight.EstimatedDuration);
+    Console.WriteLine(item.Destination+item.EstimatedDuration);
 }
 
-Flight F2 = TestData.flight1; 
+//
 
-
-var seniorTravellers = f1.SeniorTravellers(F2);
-
-foreach (var traveller in seniorTravellers)
+Console.WriteLine("***Methode  SeniorTravellers");
+foreach (var item in f1.SeniorTravellers(TestData.flight1))
 {
-    Console.WriteLine(traveller.FirstName + traveller.LastName );
+    Console.WriteLine(item.BrithDate);
 }
+
+//
+
+Console.WriteLine("***Methode  DestinationGroupFlihghts");
+Console.WriteLine(f1.DestinationGroupFlihghts());
+
+
+p3.UpperFullName();
+Console.WriteLine(p3.FullName.FirstName + " " + p3.FullName.LastName);
+
+AMContext a =new AMContext();
+//a.Planes.Add(TestData.BoingPlane);
+//a.Flights.Add(TestData.flight2);
+a.SaveChanges();
+Console.WriteLine("Ajout avec success");
+
+foreach (var item in a.Flights)
+    Console.WriteLine(item.Destination + item.plane.Capacity);
+
+
+
+
+
+
+
 
 
