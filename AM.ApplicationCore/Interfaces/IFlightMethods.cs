@@ -7,20 +7,34 @@ using AM.ApplicationCore.Domain;
 
 namespace AM.ApplicationCore.Interfaces
 {
-    public interface IFlightMethods
+    public interface IFlightMethods : IService<Flight>
     {
         public List<DateTime> GetFlightDates(string destination);
-        public void  GetFlights(string filterType, string filterValue);
+        public List<Flight>  GetFlights(string filterType, string filterValue);
+
         public void ShowFlightDetails(Plane plane);
 
         int ProgrammedFlightNumber(DateTime startDate);
 
-        public int DurationAverage(string destination);
+        public double DurationAverage(string destination);
 
 
-        public List<Flight> OrderedDurationFlights();
+         public IEnumerable<Flight> OrderedDurationFlights();
 
-        public List<Traveller> SeniorTravellers(Flight flight);
+         public IEnumerable<Traveller> SeniorTravellers(Flight flight);
+
+        IEnumerable<IGrouping<string,Flight>> DestinationGroupFlihghts();
+
+
+        IEnumerable<Flight> ListFlight(int n);
+
+        IEnumerable<Staff> GetStaffByFlightId(int volId);
+
+
+
+
+
+
 
 
     }
