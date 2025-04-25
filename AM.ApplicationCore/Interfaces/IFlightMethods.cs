@@ -7,7 +7,7 @@ using AM.ApplicationCore.Domain;
 
 namespace AM.ApplicationCore.Interfaces
 {
-    public interface IFlightMethods
+    public interface IFlightMethods : IService<Flight>
     {
         public List<DateTime> GetFlightDates(string destination);
         public List<Flight>  GetFlights(string filterType, string filterValue);
@@ -24,6 +24,15 @@ namespace AM.ApplicationCore.Interfaces
          public IEnumerable<Traveller> SeniorTravellers(Flight flight);
 
         IEnumerable<IGrouping<string,Flight>> DestinationGroupFlihghts();
+
+
+        IEnumerable<Flight> ListFlight(int n);
+
+        IEnumerable<Staff> GetStaffByFlightId(int volId);
+
+
+
+
 
 
 

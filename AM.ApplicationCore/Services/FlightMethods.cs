@@ -10,12 +10,16 @@ using AM.ApplicationCore.Interfaces;
 
 namespace AM.ApplicationCore.Services
 {
-    public class FlightMethods : IFlightMethods
+    public class FlightMethods : Service<Flight>,  IFlightMethods
     {
 
         public List<Flight> Flights = new List<Flight>();
 
         public List<Flight> FlightsVide = new List<Flight>();
+
+        public FlightMethods(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+        }
 
 
 
@@ -193,30 +197,23 @@ namespace AM.ApplicationCore.Services
             return req;
         }
 
-        
 
 
 
+        //- Retourner les vols ordonnés par date de départ des n derniers avions(patron de conception).  
+        public IEnumerable<Flight> ListFlight(int n)
+        {
+            return GetAll().OrderBy(f => f.FlightDate).TakeLast(n);
+            
+        }
 
 
+        public IEnumerable<Staff> GetStaffByFlightId(int volId)
+        {
+            return GetById(volId).Passengers.OfType<Staff>();
+        }
 
-
-
-
-
-
-
-
-
-
-
-        
-        
-
-
-
-        
-
+       
     }       
 }
 

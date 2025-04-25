@@ -1,69 +1,48 @@
-﻿using AM.ApplicationCore.Domain;
-using AM.ApplicationCore.Interfaces;
-using AM.ApplicationCore.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Reflection.Metadata;
+using System.Text;
+using System.Threading.Tasks;
+using AM.ApplicationCore.Domain;
+using AM.ApplicationCore.Interfaces;
 
-namespace AM.ApplicationCore.Service
+namespace AM.ApplicationCore.Services
 {
-    public class ServicePlane : Service<Plane>, IServicePlanes
+    public class ServicePlane : Service<Plane>, IServicePlane
     {
-        private readonly IGenericRepository<Plane> _planeRepository;
-        private readonly IGenericRepository<Flight> _flightRepository;
-
         public ServicePlane(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            _planeRepository = unitOfWork.Repository<Plane>();
-            _flightRepository = unitOfWork.Repository<Flight>();
         }
 
-        public override void Add(Plane plane)
+
+        //Retourner true si on peut réserver n places à un vol passé en paramètre.(patron de conception)
+        public bool Reserver(Flight f, int n)
         {
-            _planeRepository.Add(plane);
+            return f.plane.Capacity >=f.Passengers.Count() + n;
         }
 
-        public IEnumerable<Passenger> GetPassengers(Plane plane)
+
+        //- Supprimer tous les avions dont la date de fabrication a dépassé 10 ans. (patron de conception)
+        public void deletePlane()
         {
-            return plane.Flights.SelectMany(f => f.Passengers);
+            Delete(p => DateTime.Now.Year - p.ManufactureDate.Year > 10);
         }
-
-        public IEnumerable<Flight> GetLastNFlightsOrderedByDepartureDate(int n)
-        {
-            return GetAll()
-                .SelectMany(p => p.Flights)
-                .OrderByDescending(f => f.FlightDate)
-                .Take(n);
-        }
-
-
-        public void RemoveOldPlanes()
-        {
-            var oldPlanes = GetAll()
-                .Where(p => (DateTime.Now.Year - p.ManufactureDate.Year) > 10)
-                .ToList();
-
-            foreach (var plane in oldPlanes)
-            {
-                Delete(plane);
-            }
-
-            Commit();
-        }
-
-
-
 
 
 
         public Dictionary<DateTime, int> GetPassengerByFlightDate(DateTime startDate, DateTime endDate)
         {
             return GetAll().SelectMany(p => p.Flights)
-                .Where(f => (f.FlightDate) >= startDate && (f.FlightDate) <= endDate)  
-                .GroupBy(f => (f.FlightDate).Date)  
+                .Where(f => (f.FlightDate) >= startDate && (f.FlightDate) <= endDate)
+                .GroupBy(f => (f.FlightDate).Date)
                 .ToDictionary(g => g.Key, g => g.Sum(f => f.Passengers.Count()));
         }
+
+
+
+
+
 
 
     }
